@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5*l^wrz3^@g6_!&7_t(1*7o*03bfg!6_xqp5s^t-8ap(2sy&ta'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,7 +81,7 @@ if IS_PYTHONANYWHERE:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'mohamadalras80$scpdb',
             'USER': 'mohamadalras80',
-            'PASSWORD': 'Mohsvu80',
+            'PASSWORD': '',
             'HOST': 'mohamadalras80.mysql.pythonanywhere-services.com',
             'PORT': '3306',
         }
