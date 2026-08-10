@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+نظام ذكي لتشخيص أمراض أشجار الزيتون والحمضيات
+{% endblock %}
+
+
+{% block content %}
+
+<!-- القسم الرئيسي -->
+<section class="row home-section align-items-center">
+
+<div class="col-lg-6 text-center text-lg-end">
+<h1 class="fw-bold text-success mb-3">
+نظام ذكي لتشخيص أمراض أشجار الزيتون والحمضيات</h1>
+
+
+<p class="lead text-muted">
+نظام يعتمد على الذكاء الاصطناعي والتعلم العميق
+لتشخيص أمراض النباتات من خلال الصور
+وتقديم توصيات المعالجة المناسبة.
+</p>
+
+<a href="{% url 'diagnosis:upload' %}"
+class="btn btn-success btn-lg mt-2">ابدأ التشخيص</a>
+
+</div>
+
+<div class="col-lg-6 text-center mt-3 mt-lg-0">
+
+<img src="{% static 'images/olive_citrus_home.jpg' %}"
+class="img-fluid rounded-4 shadow home-image"
+alt="Olive and Citrus Disease Diagnosis">
+
+</div>
+
+</section>
+
+<!-- بطاقات مميزات النظام -->
+
+<section class="row mt-3">
+
+<div class="col-md-4 mb-3">
+
+<div class="card border-0 shadow-sm h-100 feature-card">
+
+<div class="card-body text-center">
+
+<h5 class="text-success fw-bold">📷 رفع الصورة</h5>
+
+<p class="text-muted mb-0">
+رفع صورة الورقة أو الثمرة أو النبات المصاب بسهولة.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-4 mb-3">
+
+<div class="card border-0 shadow-sm h-100 feature-card">
+
+<div class="card-body text-center">
+
+<h5 class="text-success fw-bold">🤖 تحليل ذكي</h5>
+
+
+<p class="text-muted mb-0">
+استخدام نموذج
+EfficientNet-B0
+لتحديد المرض بدقة عالية.
+</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card border-0 shadow-sm h-100 feature-card">
+
+<div class="card-body text-center">
+
+
+<h5 class="text-success fw-bold">🌱 توصيات المعالجة</h5>
+
+
+<p class="text-muted mb-0">
+عرض وصف المرض وطرق العلاج المناسبة.
+</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}
+لوحة إدارة دجانغو | Django Admin
+{% endblock %}
+
+
+{% block branding %}
+
+<div class="admin-brand">
+
+    <a href="{% url 'admin:index' %}" class="admin-brand-link">
+
+        <span class="admin-brand-icon">🌿</span>
+        <span class="admin-brand-text">
+            <span class="admin-brand-ar">لوحة إدارة دجانغو</span>
+            <span class="admin-brand-en">Django Admin</span>
+        </span>
+    </a>
+
+</div>
+
+{% endblock %}
+
+
+{% block nav-global %}
+{% endblock %}
+
+
+{% block extrastyle %}
+
+{{ block.super }}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap">
+
+<link rel="stylesheet" href="{% static 'css/admin_style.css' %}">
+
+{% endblock %}

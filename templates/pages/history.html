@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}سجل التشخيصات{% endblock %}
+
+{% block content %}
+
+<div class="card-body">
+
+    <!-- عنوان الصفحة وزر تحميل التقرير -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h4 class="mb-0">
+            سجل التشخيصات
+        </h4>
+
+        {% if predictions %}
+            <a href="{% url 'diagnosis:download_pdf' %}"
+                class="btn btn-outline-success">تحميل تقرير PDF</a>
+        {% endif %}
+
+    </div>
+
+
+    {% if predictions %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-success">
+
+                <tr>
+                    <th>#</th>
+                    <th>الصورة</th>
+                    <th>اسم المرض</th>
+                    <th>Confidence</th>
+                    <th>التاريخ</th>
+                    <th class="text-center">الإجراءات</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for prediction in predictions %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+
+                    <td width="90">
+
+                        <img
+                            src="{{ prediction.image.url }}"
+                            class="img-thumbnail"
+                            style="width:70px;height:70px;object-fit:cover;"
+                            alt="صورة التشخيص">
+
+                    </td>
+
+                    <td>
+                        {{ prediction.disease.name_ar }}
+                    </td>
+
+
+                    <td>
+
+                        <span class="badge bg-success">
+                            {{ prediction.confidence }}%
+                        </span>
+
+                    </td>
+
+                    <td>
+                        {{ prediction.created_at|date:"Y-m-d H:i" }}
+                    </td>
+
+
+                    <td class="text-center">
+
+                        <a
+                            href="{% url 'diagnosis:result' prediction.pk %}"
+                            class="btn btn-sm btn-outline-success">
+                            التفاصيل
+                        </a>
+
+
+                        <form
+                            method="post"
+                            action="{% url 'diagnosis:delete_prediction' prediction.pk %}"
+                            class="d-inline"
+                            onsubmit="return confirm('هل أنت متأكد من حذف هذا التشخيص؟');">
+
+                            {% csrf_token %}
+
+                            <button type="submit" class="btn btn-sm btn-danger">حذف</button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+    <div class="text-center py-5">
+
+        <h4 class="text-muted mb-3">لا توجد عمليات تشخيص حتى الآن</h4>
+
+        <a
+            href="{% url 'diagnosis:upload' %}"
+            class="btn btn-success">ابدأ أول عملية تشخيص</a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}
+لوحة إدارة دجانغو | Django Admin
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-dashboard">
+    <!-- ==================================================
+    عنوان لوحة التحكم
+    ================================================== -->
+
+    <div class="dashboard-header">
+        <div>
+            <h1>لوحة التحكم</h1>
+            <p>
+                Django Admin
+                <span>•</span>
+                إدارة نظام تشخيص أمراض الزيتون والحمضيات
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================================================
+    التطبيقات والنماذج
+    ================================================== -->
+
+    <div class="dashboard-grid">
+        {% for app in app_list %}
+            {% for model in app.models %}
+                <div class="dashboard-card">
+                    <div class="dashboard-card-icon">
+                        {% if model.object_name == "Disease" %}
+                            🌿
+                        {% elif model.object_name == "Prediction" %}
+                            🔬
+                        {% elif model.object_name == "User" %}
+                            👥
+                        {% elif model.object_name == "Group" %}
+                            🔐
+                        {% else %}
+                            ⚙️
+                        {% endif %}
+                    </div>
+
+                    <div class="dashboard-card-content">
+                        <h2>
+                            {% if model.object_name == "Disease" %}
+                                الأمراض
+                            {% elif model.object_name == "Prediction" %}
+                                التشخيصات
+                            {% elif model.object_name == "User" %}
+                                المستخدمون
+                            {% elif model.object_name == "Group" %}
+                                المجموعات
+                            {% else %}
+                                {{ model.name }}
+                            {% endif %}
+                        </h2>
+
+                        <p>
+
+                            {% if model.object_name == "Disease" %}
+                                إدارة أمراض الزيتون والحمضيات
+                            {% elif model.object_name == "Prediction" %}
+                                إدارة سجل عمليات التشخيص
+                            {% elif model.object_name == "User" %}
+                                إدارة حسابات المستخدمين
+                            {% elif model.object_name == "Group" %}
+                                إدارة مجموعات وصلاحيات المستخدمين
+                            {% else %}
+                                تعديل {{ model.name }}
+                            {% endif %}
+                        </p>
+
+
+                        <div class="dashboard-card-actions">
+                            {% if model.add_url %}
+                                <a href="{{ model.add_url }}"
+                                    class="admin-btn admin-btn-outline">
+                                    إضافة
+                                </a>
+
+                            {% endif %}
+
+                            {% if model.admin_url %}
+
+                                <a href="{{ model.admin_url }}"
+                                    class="admin-btn admin-btn-success">
+                                    تعديل
+                                </a>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+
+    <!-- ==================================================
+    روابط سريعة
+    ================================================== -->
+
+    <div class="quick-section">
+        <h2>الوصول السريع</h2>
+        <div class="quick-links">
+            <a href="{% url 'admin:diagnosis_disease_changelist' %}"
+                class="quick-link">
+                🌿
+                <span>إدارة الأمراض</span>
+            </a>
+
+            <a href="{% url 'admin:diagnosis_prediction_changelist' %}"
+                class="quick-link">
+                🔬
+                <span>سجل التشخيص</span>
+            </a>
+
+
+            <a href="{% url 'admin:auth_user_changelist' %}"
+                class="quick-link">
+                👥
+                <span>المستخدمون</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

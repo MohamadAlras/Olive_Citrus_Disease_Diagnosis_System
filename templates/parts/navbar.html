@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background:#e8f5e9" dir="rtl">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold text-success" href="{% url 'diagnosis:home' %}">
+            🌿 OliveCitrus
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'diagnosis:home' %}">
+                        الرئيسية
+                    </a>
+                </li>
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'diagnosis:upload' %}">
+                            تشخيص مرض
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'diagnosis:history' %}">
+                            سجل التشخيص
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'diagnosis:profile' %}">
+                            الملف الشخصي
+                        </a>
+                    </li>
+
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">
+                                لوحة الإدارة
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'diagnosis:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link">
+                                تسجيل الخروج
+                            </button>
+                        </form>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'diagnosis:login' %}">
+                            تسجيل الدخول
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'diagnosis:register' %}">
+                            إنشاء حساب
+                        </a>
+                    </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+
+    </div>
+</nav>

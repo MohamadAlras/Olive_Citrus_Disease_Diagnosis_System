@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}إنشاء حساب{% endblock %}
+
+{% block content %}
+
+<div class="col-lg-6 mx-auto">
+
+    <div class="card auth-card border-0 shadow rounded-4">
+
+        <div class="card-header bg-success text-white text-center">
+            <h3 class="mb-0">إنشاء حساب جديد</h3>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label">الاسم الأول</label>
+                        <input class="form-control"
+                                name="first_name"
+                                required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">الاسم الأخير</label>
+                        <input class="form-control"
+                                name="last_name"
+                                required>
+                    </div>
+
+                </div>
+
+                <div class="mt-3">
+                    <label class="form-label">اسم المستخدم</label>
+                    <input class="form-control"
+                            name="username"
+                            required>
+                </div>
+
+                <div class="mt-3">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email"
+                            class="form-control"
+                            name="email"
+                            required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">كلمة المرور</label>
+
+                    <div class="password-wrapper">
+                        <input type="password"
+                                name="password1"
+                                class="form-control password-field"
+                                required>
+
+                        <button type="button"
+                                class="toggle-password"
+                                aria-label="إظهار كلمة المرور">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">تأكيد كلمة المرور</label>
+
+                    <div class="password-wrapper">
+                        <input type="password"
+                                name="password2"
+                                class="form-control password-field"
+                                required>
+
+                        <button type="button"
+                                class="toggle-password"
+                                aria-label="إظهار كلمة المرور">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100">
+                    إنشاء الحساب
+                </button>
+
+            </form>
+
+            <hr>
+
+            <p class="text-center mb-0">
+                لديك حساب بالفعل؟
+                <a href="{% url 'diagnosis:login' %}"
+                    class="text-success fw-bold text-decoration-none">
+                    تسجيل الدخول
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

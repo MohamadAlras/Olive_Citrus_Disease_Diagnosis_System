@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}حسابي{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'success' }} alert-dismissible fade show text-center shadow-sm py-2 mb-3"
+                role="alert">
+                {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="إغلاق">
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="col-lg-8 mx-auto">
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-header bg-success text-white py-2">
+            <h4 class="mb-0">👤 الحساب الشخصي</h4>
+        </div>
+
+        <div class="card-body p-2">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="row g-2">
+
+                    <div class="col-md-6">
+                        <label class="form-label mb-1">الاسم الأول</label>
+                        <input type="text"
+                                class="form-control"
+                                name="first_name"
+                                value="{{ request.user.first_name }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label mb-1">الاسم الأخير</label>
+                        <input type="text"
+                                class="form-control"
+                                name="last_name"
+                                value="{{ request.user.last_name }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label mb-1">اسم المستخدم</label>
+                        <input type="text"
+                                class="form-control"
+                                name="username"
+                                value="{{ request.user.username }}"
+                                required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label mb-1">البريد الإلكتروني</label>
+                        <input type="email"
+                                class="form-control"
+                                name="email"
+                                value="{{ request.user.email }}"
+                                required>
+                    </div>
+
+                </div>
+
+                <hr class="my-2">
+
+                <div class="d-flex justify-content-between">
+
+                    <button type="submit" class="btn btn-success">
+                        💾 حفظ التعديلات
+                    </button>
+
+                    <a href="{% url 'diagnosis:history' %}"
+                        class="btn btn-outline-success">
+                        سجل التشخيصات
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mt-2">
+
+        <div class="card-header bg-light py-1">
+            <h5 class="mb-0">معلومات الحساب</h5>
+        </div>
+
+        <div class="card-body p-2">
+
+            <table class="table mb-0">
+
+                <tr>
+                    <th width="35%">تاريخ إنشاء الحساب</th>
+                    <td>{{ request.user.date_joined|date:"Y-m-d H:i" }}</td>
+                </tr>
+
+                <tr>
+                    <th>آخر تسجيل دخول</th>
+                    <td>{{ request.user.last_login|date:"Y-m-d H:i" }}</td>
+                </tr>
+
+                <tr>
+                    <th>نوع الحساب</th>
+                    <td>
+                        {% if request.user.is_superuser %}
+                            <span class="badge bg-danger">Administrator</span>
+                        {% elif request.user.is_staff %}
+                            <span class="badge bg-warning text-dark">Staff</span>
+                        {% else %}
+                            <span class="badge bg-success">User</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% block js %}
+<script>
+setTimeout(function () {
+    document.querySelectorAll(".messages-container .alert").forEach(function (alert) {
+        bootstrap.Alert.getOrCreateInstance(alert).close();
+    });
+}, 3000);
+</script>
+{% endblock %}
+
+{% endblock %}

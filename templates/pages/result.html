@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}نتيجة التشخيص{% endblock %}
+
+{% block content %}
+<div class="result-page">
+
+<div class="row justify-content-center g-4">
+
+    <!-- الصورة -->
+    <div class="col-lg-4 pe-lg-4">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-header bg-success text-white text-center fw-bold">
+                الصورة المرفوعة
+            </div>
+
+            <div class="card-body text-center py-4">
+
+                <img src="{{ prediction.image.url }}"
+                        class="img-fluid rounded-3 shadow-sm"
+                        style="max-height:280px; object-fit:contain;"
+                        alt="Uploaded Image">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- نتيجة التشخيص -->
+    <div class="col-lg-8">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-header bg-success text-white fw-bold">
+                نتيجة التشخيص
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-bordered table-sm align-middle mb-0">
+
+                    <tr>
+                        <th width="28%">اسم المرض</th>
+                        <td>{{ prediction.disease.name_ar }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Disease Name</th>
+                        <td>{{ prediction.disease.name_en }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>اسم الفئة</th>
+                        <td>{{ prediction.disease.model_class }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>نسبة الثقة</th>
+                        <td>
+
+                            <div class="progress" style="height:28px;">
+
+                                <div class="progress-bar bg-success fw-bold"
+                                    role="progressbar"
+                                    aria-valuenow="{{ prediction.confidence }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    style="--confidence: {{ prediction.confidence }}%;"> 
+                                    {{ prediction.confidence|floatformat:2 }}%
+
+                                </div>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>وصف المرض</th>
+
+                        <td class="text-justify">
+                            {{ prediction.disease.description }}
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th>توصيات المعالجة</th>
+
+                        <td class="text-justify">
+
+                            <ul class="mb-0 ps-3">
+
+                                {% for item in prediction.disease.treatment %}
+                                    <li class="mb-2">{{ item }}</li>
+                                {% endfor %}
+
+                            </ul>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th>تاريخ التحليل</th>
+                        <td>{{ prediction.created_at }}</td>
+                    </tr>
+
+                </table>
+
+                <div class="text-center mt-3">
+
+                    <a href="{% url 'diagnosis:upload' %}"
+                        class="btn btn-success px-4">
+                        تحليل صورة جديدة
+                    </a>
+
+                    <a href="{% url 'diagnosis:history' %}"
+                        class="btn btn-outline-success px-4">
+                        سجل التشخيصات
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "admin/change_list.html" %}
+
+{% block content_title %}
+    {{ block.super }}
+
+    <div class="admin-stats">
+
+        <!-- إجمالي المستخدمين -->
+        <div class="admin-stat-card" style="background: #198754;">
+            <div class="admin-stat-title">
+                إجمالي المستخدمين
+            </div>
+
+            <div class="admin-stat-value">
+                {{ stats.total_users }}
+            </div>
+        </div>
+
+
+        <!-- إجمالي التشخيصات -->
+        <div class="admin-stat-card" style="background: #0d6efd;">
+            <div class="admin-stat-title">
+                إجمالي التشخيصات
+            </div>
+
+            <div class="admin-stat-value">
+                {{ stats.total_predictions }}
+            </div>
+        </div>
+
+
+        <!-- إجمالي الأمراض -->
+        <div class="admin-stat-card" style="background: #6f42c1;">
+            <div class="admin-stat-title">
+                إجمالي الأمراض
+            </div>
+
+            <div class="admin-stat-value">
+                {{ stats.total_diseases }}
+            </div>
+        </div>
+
+
+        <!-- متوسط الثقة -->
+        <div class="admin-stat-card" style="background: #fd7e14;">
+            <div class="admin-stat-title">
+                متوسط الثقة
+            </div>
+
+            <div class="admin-stat-value">
+                {{ stats.average_confidence|floatformat:2 }}%
+            </div>
+        </div>
+
+
+        <!-- تشخيصات اليوم -->
+        <div class="admin-stat-card" style="background: #20c997;">
+            <div class="admin-stat-title">
+                تشخيصات اليوم
+            </div>
+
+            <div class="admin-stat-value">
+                {{ stats.today_predictions }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

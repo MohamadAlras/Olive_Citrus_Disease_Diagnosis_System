@@ -1,0 +1,276 @@
+/* الإعدادات العامة */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Cairo", sans-serif;
+    background-color: #fafafa;
+}
+
+/* هيكل الصفحة الرئيسي */
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Navbar */
+
+.navbar {
+    min-height: 65px;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    font-weight: 600;
+    transition: .3s;
+}
+
+.nav-link:hover {
+    color: #198754 !important;
+}
+
+
+/* Footer */
+
+footer {
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* الصفحة الرئيسية Home */
+
+.home-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.home-section img {
+    max-height: 320px;
+    object-fit: cover;
+}
+
+
+/* البطاقات العامة */
+
+.card {
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h5 {
+    font-weight: 700;
+}
+
+
+/* صفحة رفع الصورة */
+
+.upload-card {
+    min-height: 320px;
+}
+
+input[type="file"] {
+    cursor: pointer;
+}
+
+.small-card {
+    min-height: 120px;
+}
+
+
+/* الأزرار */
+
+.btn-success {
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-success:hover {
+    opacity: .9;
+}
+
+
+/* النصوص */
+
+.text-muted {
+    line-height: 1.8;
+}
+
+
+/* صفحات تسجيل الدخول وإنشاء الحساب */
+
+.auth-card {
+    margin: auto;
+}
+
+.auth-card .card-header {
+    padding: .7rem;
+}
+
+.auth-card .card-body {
+    padding: 1.2rem !important;
+}
+
+.auth-card .form-label {
+    font-weight: 600;
+    margin-bottom: .25rem;
+}
+
+.auth-card .form-control {
+    padding: .45rem .7rem;
+}
+
+.auth-card .btn {
+    padding: .55rem;
+}
+
+
+/* تقليل المسافات داخل صفحات المصادقة */
+
+.auth-card .mb-3,
+.auth-card .mt-3 {
+    margin-bottom: .8rem !important;
+}
+
+.auth-card .mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+
+/* تحسين العرض على الشاشات الصغيرة */
+
+@media (max-width:768px) {
+
+    footer {
+        height: auto;
+        padding: 15px;
+    }
+
+    .home-section img {
+        max-height: 250px;
+    }
+
+}
+
+/* زر إظهار كلمة المرور */
+
+.input-group .toggle-password {
+    border-radius: 0 8px 8px 0;
+    width: 45px;
+}
+
+[dir="rtl"] .input-group .toggle-password {
+    border-radius: 8px 0 0 8px;
+}
+
+.toggle-password i {
+    font-size: 1.1rem;
+}
+
+/* حقول كلمة المرور */
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper .form-control{
+    padding-inline-start:2.8rem;
+}
+
+.toggle-password{
+    position:absolute;
+    top:50%;
+    inset-inline-start:.75rem;
+    transform:translateY(-50%);
+    border:0;
+    background:none;
+    color:#6c757d;
+    padding:0;
+    cursor:pointer;
+    line-height:1;
+    z-index:5;
+}
+
+.toggle-password:hover{
+    color:#198754;
+}
+
+.toggle-password:focus{
+    outline:none;
+    box-shadow:none;
+}
+
+/* صفحة نتيجة التشخيص */
+
+.result-page .card-body{
+    padding:1.15rem;
+}
+
+.result-page img{
+    max-height:280px;
+    object-fit:contain;
+}
+
+.result-page .list-group-item{
+    padding:.45rem .75rem;
+}
+
+.result-page p,
+.result-page li{
+    margin-bottom:.35rem;
+    line-height:1.75;
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.result-page .progress{
+    height:26px;
+}
+
+.result-page .btn{
+    min-width:180px;
+}
+
+.text-justify{
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 1.75;
+}
+
+.text-justify li:last-child{
+    margin-bottom: 0 !important;
+}
+
+/* رسائل النظام */
+
+.messages-container {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto 15px;
+}
+
+.messages-container .alert {
+    margin-bottom: 0;
+    border-radius: 10px;
+    font-weight: 600;
+}
