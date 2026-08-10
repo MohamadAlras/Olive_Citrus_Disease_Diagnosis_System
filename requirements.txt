@@ -11,3 +11,5 @@ numpy==2.5.1
 reportlab
 arabic-reshaper
 python-bidi
+
+mysqlclient
