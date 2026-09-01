@@ -42,6 +42,7 @@ EfficientNet-B0
 10. Citrus Sooty Mold
 
 أمراض الزيتون:
+
 11. Olive Aculus Olearius
 12. Olive Anthracnose
 13. Olive Knot
@@ -52,7 +53,6 @@ EfficientNet-B0
 18. Olive Saissetia Oleae
 19. Olive Spilocaea Oleagina
 20. Olive Verticillium Wilt
-
 ---
 
 ## 📊 بيانات التدريب
@@ -174,9 +174,6 @@ Olive_Citrus_Disease_Diagnosis_System/
 ├── requirements.txt
 ├── db.sqlite3
 └── README.md
-```
-
----
 
 ## ⚙️ تشغيل المشروع محليًا
 
