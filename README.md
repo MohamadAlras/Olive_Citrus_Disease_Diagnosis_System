@@ -4,7 +4,7 @@
 
 نظام ويب ذكي يعتمد على التعلم العميق لتشخيص أمراض أشجار الزيتون والحمضيات من خلال تحليل صور الأوراق والثمار والأغصان والأجزاء المصابة من النبات.
 
-تم تطوير النظام باستخدام Python و Django وPyTorch، ويعتمد على نموذج EfficientNet-B0 المدرب مسبقاً على ImageNet والمعاد تدريبه لتصنيف 20 فئة من أمراض الزيتون والحمضيات.
+### تم تطوير النظام باستخدام Python و Django وPyTorch، ويعتمد على نموذج EfficientNet-B0 المدرب مسبقاً على ImageNet والمعاد تدريبه لتصنيف 20 فئة من أمراض الزيتون والحمضيات.
 ---
 ## 📌 أهم وظائف النظام
 
@@ -143,37 +143,8 @@ PDF
 ## 📁 بنية المشروع
 
 
-Olive_Citrus_Disease_Diagnosis_System/
-│
-├── diagnosis/
-│   ├── migrations/
-│   ├── management/
-│   ├── admin.py
-│   ├── models.py
-│   ├── urls.py
-│   ├── views.py
-│   └── ...
-│
-├── OliveCitrusDiseaseSystem/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── models/
-│   └── efficientnet_b0_stratified_best.pth
-│
-├── media/
-│   └── predictions/
-│
-├── static/
-├── templates/
-├── data/
-├── seed_diseases.py
-├── manage.py
-├── requirements.txt
-├── db.sqlite3
-└── README.md
+<img width="534" height="666" alt="image" src="https://github.com/user-attachments/assets/e571362d-6b3d-4380-b9da-cfdc77ddea3b" />
+
 
 ## ⚙️ تشغيل المشروع محليًا
 
