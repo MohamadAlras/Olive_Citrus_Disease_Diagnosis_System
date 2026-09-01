@@ -1,6 +1,6 @@
 # نظام ذكي لتشخيص أمراض أشجار الزيتون والحمضيات وتقديم توصيات المعالجة باستخدام التعلم العميق
 
-# Deep Learning-Based Automated Diagnosis and Treatment Advisory Intelligent System for Olive and Citrus Diseases
+## Deep Learning-Based Automated Diagnosis and Treatment Advisory Intelligent System for Olive and Citrus Diseases
 
 نظام ويب ذكي يعتمد على التعلم العميق لتشخيص أمراض أشجار الزيتون والحمضيات من خلال تحليل صور الأوراق والثمار والأغصان والأجزاء المصابة من النبات.
 
