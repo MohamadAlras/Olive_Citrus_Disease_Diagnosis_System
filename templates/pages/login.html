@@ -1,67 +1,77 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
-{% block title %}تسجيل الدخول{% endblock %}
+{% block title %}تسجيل الدخول{% endblock %} 
 
-{% block content %}
+{% block content %} 
 
-<div class="col-md-5 mx-auto">
+<div class="col-md-5 mx-auto"> 
 
-    <div class="card auth-card border-0 shadow rounded-4">
+    <div class="card auth-card border-0 shadow rounded-4"> 
 
-        <div class="card-header bg-success text-white text-center">
-            <h3 class="mb-0">تسجيل الدخول</h3>
-        </div>
+        <div class="card-header bg-success text-white text-center"> 
+            <h3 class="mb-0">تسجيل الدخول</h3> 
+        </div> 
 
-        <div class="card-body p-4">
+        <div class="card-body p-4"> 
+            {% if messages %} 
+                {% for message in messages %} 
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center py-2 mb-3" role="alert"> 
+                        {{ message }} 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button> 
+                    </div> 
+                {% endfor %} 
+            {% endif %} 
 
-            <form method="post">
-                {% csrf_token %}
+            <form method="post" autocomplete="off"> 
+                {% csrf_token %} 
 
-                <div class="mb-3">
-                    <label class="form-label">البريد الإلكتروني</label>
-                    <input type="email"
-                            class="form-control"
-                            name="email"
-                            required>
-                </div>
+                <div class="mb-3"> 
+                    <label class="form-label">البريد الإلكتروني</label> 
+                    <input type="email" 
+                            class="form-control" 
+                            name="email" 
+                            autocomplete="off"
+                            required> 
+                </div> 
 
-                <div class="mb-4">
-                    <label class="form-label">كلمة المرور</label>
+                <div class="mb-4"> 
+                    <label class="form-label">كلمة المرور</label> 
 
-                    <div class="password-wrapper">
-                        <input type="password"
-                                name="password"
-                                class="form-control password-field"
-                                required>
+                    <div class="password-wrapper"> 
+                        <input type="password" 
+                                name="password" 
+                                class="form-control password-field" 
+                                autocomplete="current-password"
+                                required> 
 
-                        <button type="button"
-                                class="toggle-password"
-                                aria-label="إظهار كلمة المرور">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
+                        <button type="button" 
+                                class="toggle-password" 
+                                aria-label="إظهار كلمة المرور"> 
+                            <i class="bi bi-eye"></i> 
+                        </button> 
+                    </div> 
+                </div> 
 
-                <button class="btn btn-success w-100">
-                    تسجيل الدخول
-                </button>
+                <button class="btn btn-success w-100"> 
+                    تسجيل الدخول 
+                </button> 
 
-            </form>
+            </form> 
 
-            <hr>
+            <hr> 
 
-            <p class="text-center mb-0">
-                ليس لديك حساب؟
-                <a href="{% url 'diagnosis:register' %}"
-                    class="text-success fw-bold text-decoration-none">
-                    إنشاء حساب
-                </a>
-            </p>
+            <p class="text-center mb-0"> 
+                ليس لديك حساب؟ 
+                <a href="{% url 'diagnosis:register' %}" 
+                    class="text-success fw-bold text-decoration-none"> 
+                    إنشاء حساب 
+                </a> 
+            </p> 
 
-        </div>
+        </div> 
 
-    </div>
+    </div> 
 
-</div>
+</div> 
 
 {% endblock %}

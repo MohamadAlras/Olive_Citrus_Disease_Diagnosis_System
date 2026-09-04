@@ -6,6 +6,19 @@
 
 <div class="row justify-content-center g-3">
 
+    <!-- رسائل النظام -->
+    {% if messages %}
+        <div class="col-12">
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
     <!-- بطاقة رفع وتحليل الصورة -->
     <div class="col-lg-8">
 
@@ -21,17 +34,20 @@
                 </p>
 
                 <form method="post" enctype="multipart/form-data">
+
                     {% csrf_token %}
 
                     <label class="form-label fw-semibold">
                         اختر الصورة
                     </label>
 
-                    <input type="file"
-                            class="form-control mb-2"
-                            name="image"
-                            accept=".jpg,.jpeg,.png,.bmp,.webp"
-                            required>
+                    <input
+                        type="file"
+                        class="form-control mb-2"
+                        name="image"
+                        accept=".jpg,.jpeg,.png,.bmp,.webp"
+                        required
+                    >
 
                     <div class="form-text mb-4">
                         الصيغ المدعومة: JPG - PNG - JPEG - BMP - WEBP
@@ -40,9 +56,14 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="btn btn-success btn-lg px-5">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg px-5"
+                        >
                             🔍 تحليل الصورة
                         </button>
+
                     </div>
 
                 </form>
@@ -52,45 +73,69 @@
 
     </div>
 
-
     <!-- البطاقات التوضيحية -->
     <div class="col-12">
 
         <div class="row g-3">
 
             <div class="col-md-4">
+
                 <div class="card border-0 shadow-sm h-100 text-center small-card">
+
                     <div class="card-body py-3">
-                        <h5 class="text-success">📷 صورة واضحة</h5>
+
+                        <h5 class="text-success">
+                            📷 صورة واضحة
+                        </h5>
+
                         <p class="text-muted mb-0">
                             يفضل أن تكون الصورة مضاءة جيداً وخالية من التشويش.
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
 
-
             <div class="col-md-4">
+
                 <div class="card border-0 shadow-sm h-100 text-center small-card">
+
                     <div class="card-body py-3">
-                        <h5 class="text-success">🍃 الجزء المصاب</h5>
+
+                        <h5 class="text-success">
+                            🍃 الجزء المصاب
+                        </h5>
+
                         <p class="text-muted mb-0">
                             ركز على الورقة أو الثمرة أو الغصن الذي تظهر عليه الأعراض.
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
 
-
             <div class="col-md-4">
+
                 <div class="card border-0 shadow-sm h-100 text-center small-card">
+
                     <div class="card-body py-3">
-                        <h5 class="text-success">🤖 تحليل ذكي</h5>
+
+                        <h5 class="text-success">
+                            🤖 تحليل ذكي
+                        </h5>
+
                         <p class="text-muted mb-0">
                             سيعرض النظام اسم المرض ونسبة الثقة ووصف المرض والعلاج المناسب.
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
 
         </div>

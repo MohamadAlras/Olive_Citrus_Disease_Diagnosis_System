@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import re
 import torch
 from PIL import Image
 
@@ -19,7 +20,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.units import cm
-from reportlab.platypus import Image
+from reportlab.platypus import Image as ReportLabImage
 
 import arabic_reshaper
 from bidi.algorithm import get_display
@@ -27,7 +28,6 @@ from bidi.algorithm import get_display
 from .models import Disease, Prediction
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 # ==========================================================
 # أسماء الفئات بنفس ترتيب التدريب
@@ -56,9 +56,8 @@ CLASS_NAMES = [
     "olive_verticillium_wilt",
 ]
 
-
 # ==========================================================
-# EfficientNet-B0 تحميل نموذج 
+# EfficientNet-B0 تحميل نموذج
 # ==========================================================
 
 model = models.efficientnet_b0(weights=None)
@@ -77,7 +76,6 @@ model.load_state_dict(
 
 model.to(device).eval()
 
-
 # ==========================================================
 # معالجة الصور قبل التنبؤ
 # ==========================================================
@@ -92,7 +90,7 @@ transform = transforms.Compose([
 ])
 
 # ==========================================================
-# PDF تجهيز النص العربي للعرض داخل 
+# PDF تجهيز النص العربي للعرض داخل
 # ==========================================================
 
 def arabic_text(text):
@@ -105,9 +103,9 @@ def arabic_text(text):
 # ==========================================================
 # الصفحة الرئيسية
 # ==========================================================
+
 def home(request):
     return render(request, "pages/home.html")
-
 
 # ==========================================================
 # تسجيل الدخول باستخدام البريد الإلكتروني
@@ -131,7 +129,6 @@ def login_view(request):
 
     return render(request, "pages/login.html")
 
-
 # ==========================================================
 # إنشاء حساب
 # ==========================================================
@@ -139,39 +136,96 @@ def login_view(request):
 def register(request):
     if request.method == "POST":
         data = request.POST
+        first_name = data.get("first_name", "").strip()
+        last_name = data.get("last_name", "").strip()
+        username = data.get("username", "").strip()
         email = data.get("email", "").strip()
+        password1 = data.get("password1", "")
+        password2 = data.get("password2", "")
 
         # التحقق من تطابق كلمتي المرور
-        if data.get("password1") != data.get("password2"):
+        if password1 != password2:
             messages.error(request, "كلمتا المرور غير متطابقتين.")
-            return redirect("diagnosis:register")
+            return render(
+                request,
+                "pages/register.html",
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "username": username,
+                    "email": email,
+                },
+            )
+
+        # التحقق من طول كلمة المرور
+        if len(password1) < 6:
+            messages.error(request, "يجب أن تتكون كلمة المرور من 6 محارف على الأقل.")
+            return render(
+                request,
+                "pages/register.html",
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "username": username,
+                    "email": email,
+                },
+            )
+
+        # التحقق من احتواء كلمة المرور على حروف وأرقام
+        if not re.search(r"[A-Za-z]", password1) or not re.search(r"\d", password1):
+            messages.error(request, "يجب أن تحتوي كلمة المرور على حروف وأرقام.")
+            return render(
+                request,
+                "pages/register.html",
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "username": username,
+                    "email": email,
+                },
+            )
 
         # التحقق من عدم تكرار اسم المستخدم
-        if User.objects.filter(
-            username=data.get("username", "")
-        ).exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, "اسم المستخدم مستخدم بالفعل.")
-            return redirect("diagnosis:register")
+            return render(
+                request,
+                "pages/register.html",
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "username": username,
+                    "email": email,
+                },
+            )
 
         # التحقق من عدم تكرار البريد الإلكتروني
         if User.objects.filter(email__iexact=email).exists():
             messages.error(request, "البريد الإلكتروني مستخدم بالفعل.")
-            return redirect("diagnosis:register")
+            return render(
+                request,
+                "pages/register.html",
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "username": username,
+                    "email": email,
+                },
+            )
 
         # إنشاء المستخدم
         User.objects.create_user(
-            username=data.get("username", ""),
+            username=username,
             email=email,
-            password=data.get("password1", ""),
-            first_name=data.get("first_name", ""),
-            last_name=data.get("last_name", ""),
+            password=password1,
+            first_name=first_name,
+            last_name=last_name,
         )
 
         messages.success(request, "تم إنشاء الحساب بنجاح.")
         return redirect("diagnosis:login")
 
     return render(request, "pages/register.html")
-
 
 # ==========================================================
 # تسجيل الخروج
@@ -180,7 +234,6 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect("diagnosis:home")
-
 
 # ==========================================================
 # رفع الصورة وتحليلها
@@ -194,7 +247,8 @@ def upload_image(request):
             return redirect("diagnosis:upload")
 
         image = request.FILES["image"]
-        # 5MB التحقق من حجم الصورة — الحد الأقصى 
+
+        # 5MB التحقق من حجم الصورة — الحد الأقصى
         if image.size > 5 * 1024 * 1024:
             messages.error(
                 request,
@@ -231,13 +285,12 @@ def upload_image(request):
                 ),
             )
 
-            return redirect("diagnosis:result",  pk=prediction.pk,)
+            return redirect("diagnosis:result", pk=prediction.pk,)
 
         except Exception as e:
             messages.error(request, f"حدث خطأ أثناء التحليل: {e}",)
 
     return render(request, "pages/upload.html")
-
 
 # ==========================================================
 # عرض نتيجة التشخيص
@@ -256,8 +309,6 @@ def result(request, pk):
         "pages/result.html",
         {"prediction": prediction},
     )
-
-
 # ==========================================================
 # سجل التشخيص
 # ==========================================================
@@ -275,7 +326,7 @@ def history(request):
     )
 
 # ==========================================================
-# PDF تحميل تقرير 
+# PDF تحميل تقرير
 # ==========================================================
 
 @login_required
@@ -550,7 +601,7 @@ def download_pdf(request):
         y -= 0.9 * cm
 
     # ======================================================
-    # PDF إنهاء ملف 
+    # PDF إنهاء ملف
     # ======================================================
 
     pdf.save()
@@ -560,6 +611,7 @@ def download_pdf(request):
 # ==========================================================
 # الملف الشخصي
 # ==========================================================
+
 @login_required
 def profile(request):
     user = request.user
@@ -590,6 +642,7 @@ def profile(request):
         return redirect("diagnosis:profile")
 
     return render(request, "pages/profile.html")
+
 # ==========================================================
 # حذف تشخيص
 # ==========================================================

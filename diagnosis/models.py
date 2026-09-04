@@ -15,7 +15,7 @@ class Disease(models.Model):
         return self.name_ar
 
 # ==========================================================
-# جدول التنبؤات
+# جدول التشخيص (التنبؤات) 
 # ==========================================================
 class Prediction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
