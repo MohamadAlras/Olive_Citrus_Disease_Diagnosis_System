@@ -4,9 +4,9 @@
 
 نظام ويب ذكي يعتمد على التعلم العميق لتشخيص أمراض أشجار الزيتون والحمضيات من خلال تحليل صور الأوراق والثمار والأغصان والأجزاء المصابة من النبات.
 
-## Pytjonanywhere: https://mohamadalras80.pythonanywhere.com/
+#### Pythonanywhere: https://mohamadalras80.pythonanywhere.com/
 
-## Google Colab: https://colab.research.google.com/drive/1d5weqHhIE9sgwvn9DhZVWMbR9subwW2x#scrollTo=YpbiVvNibfAz
+####  Google Colab: https://colab.research.google.com/drive/1d5weqHhIE9sgwvn9DhZVWMbR9subwW2x#scrollTo=YpbiVvNibfAz
 
 
 
